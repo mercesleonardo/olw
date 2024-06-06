@@ -22,7 +22,7 @@ class BeerController extends Controller
             return collect($value)->only(['name', 'tagline', 'first_brewed', 'description'])->toArray();
         })->toArray();
 
-        Excel::store(new BeerExport($filteredBeers), 'olw-report.xlsx');
+        Excel::store(new BeerExport($filteredBeers), 'olw-report.xlsx', 's3');
 
         return 'relatório criado';
     }
