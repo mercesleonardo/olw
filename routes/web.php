@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\BeerController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\BeerController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -27,7 +28,14 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-Route::group(attributes: ['prefix' => 'beers'], routes: function () {
+Route::group([
+    'prefix' => 'beers',
+    'middleware' => 'auth'
+], function () {
     Route::get(uri: '/', action: [BeerController::class, 'index']);
+
     Route::get(uri: '/export', action: [BeerController::class, 'export']);
+
+    Route::resource(name: 'reports', controller: ExportController::class)
+        ->only(['index', 'destroy']);
 });
