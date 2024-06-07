@@ -13,4 +13,14 @@ class Export extends Model
         'user_id',
         'file_name',
     ];
+
+    /**
+     * Get the user that owns the export.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
