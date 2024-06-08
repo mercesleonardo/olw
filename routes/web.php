@@ -32,7 +32,7 @@ Route::group([
     'prefix' => 'beers',
     'middleware' => 'auth'
 ], function () {
-    Route::get(uri: '/', action: [BeerController::class, 'index']);
+    Route::get(uri: '/', action: [BeerController::class, 'index'])->name('beers');
 
     Route::get(uri: '/export', action: [BeerController::class, 'export']);
 
