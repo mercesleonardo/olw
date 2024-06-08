@@ -1,8 +1,18 @@
 <script setup>
-    import { ref } from 'vue';
-    let beers = ''
+    import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+
+    defineProps(['beers'])
 </script>
 
 <template>
 
+    <AuthenticatedLayout>
+        <div class="py-12">
+            <template v-for="beer in beers" :key="beer.id">
+                <span>
+                    {{ beer.name }}
+                </span>
+            </template>
+        </div>
+    </AuthenticatedLayout>
 </template>
