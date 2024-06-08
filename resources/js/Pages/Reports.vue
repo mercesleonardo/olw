@@ -6,7 +6,7 @@ import THead from '@/Components/THead.vue';
 import TData from '@/Components/TData.vue';
 import Dialog from '@/Components/Dialog.vue';
 
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/vue3'
 const props = defineProps(['exports', 'flash']);
 
 </script>

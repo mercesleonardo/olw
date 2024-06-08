@@ -31,11 +31,11 @@ require __DIR__ . '/auth.php';
 Route::group([
     'prefix' => 'beers',
     'middleware' => 'auth'
-], function () {
-    Route::get(uri: '/', action: [BeerController::class, 'index'])->name('beers');
+], function() {
+    Route::get('/', [BeerController::class, 'index'])->name('beers');
 
-    Route::post(uri: '/export', action: [BeerController::class, 'export'])->name('beers.export');
+    Route::post('/export', [BeerController::class, 'export'])->name('beers.export');
 
-    Route::resource(name: 'reports', controller: ExportController::class)
-        ->only(['index', 'destroy']);
+    Route::resource("reports", ExportController::class)
+        ->only(["index", "show", "destroy"]);
 });

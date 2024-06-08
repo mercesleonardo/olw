@@ -23,7 +23,6 @@ class BeerController extends Controller
         $filters = $request->validated();
         $beers = $service->getBeers(...$filters);
         $meals = Meal::all();
-
         return Inertia::render('Beers', [
             'beers' => $beers,
             'meals' => $meals,
