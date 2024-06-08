@@ -41,6 +41,7 @@ class BeerController extends Controller
         ])->dispatch($request->validated(), $filename);
 
 
-        return 'relatório criado';
+        return redirect()->back()
+            ->with('success', 'Seu arquivo foi enviado para processamento e em breve estará em seu email!');
     }
 }

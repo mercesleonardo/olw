@@ -34,7 +34,7 @@ Route::group([
 ], function () {
     Route::get(uri: '/', action: [BeerController::class, 'index'])->name('beers');
 
-    Route::get(uri: '/export', action: [BeerController::class, 'export']);
+    Route::post(uri: '/export', action: [BeerController::class, 'export'])->name('beers.export');
 
     Route::resource(name: 'reports', controller: ExportController::class)
         ->only(['index', 'destroy']);
