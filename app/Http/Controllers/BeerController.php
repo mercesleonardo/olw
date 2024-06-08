@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Export;
 use App\Jobs\ExportJob;
 use App\Mail\ExportMail;
@@ -18,7 +19,11 @@ class BeerController extends Controller
 {
     public function index(BeerRequest $request, PunkapiService $service)
     {
-        return $service->getBeers(...$request->validated());
+        $beers = $service->getBeers(...$request->validated());
+
+        return Inertia::render('Beers', [
+            'beers' => $beers,
+        ]);
     }
 
     public function export(BeerRequest $request, PunkapiService $service)
