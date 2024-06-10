@@ -1,66 +1,136 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Express 3 - Do Zero Ao Deploy
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Bem-vindo ao projeto **Laravel Express 3 - Do Zero Ao Deploy**! Este repositório contém o código e a documentação para o desenvolvimento de uma aplicação Laravel, desde a configuração inicial até o deploy na AWS utilizando Terraform, EC2 e RDS. A aplicação inclui a construção de uma API, integração com Docker através do Laravel Sail e um front-end desenvolvido com Vue.js.
 
-## About Laravel
+## Sumário
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Introdução](#introdução)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação](#instalação)
+- [Configuração](#configuração)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Utilização](#utilização)
+- [Deploy na AWS](#deploy-na-aws)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Introdução
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Este projeto tem como objetivo guiar o desenvolvedor por todo o processo de criação de uma aplicação Laravel completa, abordando os seguintes tópicos:
 
-## Learning Laravel
+- Configuração do ambiente de desenvolvimento com Laravel Sail
+- Desenvolvimento de uma API com Laravel
+- Criação de um front-end com Vue.js
+- Dockerização da aplicação com Laravel Sail
+- Deploy na AWS utilizando Terraform, EC2 e RDS
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Pré-requisitos
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Antes de começar, certifique-se de ter os seguintes requisitos instalados em seu ambiente de desenvolvimento:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Docker
+- Docker Compose
+- Conta na AWS
+- Git
 
-## Laravel Sponsors
+## Instalação
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Siga os passos abaixo para clonar e configurar o projeto:
 
-### Premium Partners
+1. Clone o repositório:
+    ```sh
+    git clone https://github.com/seu-usuario/olw.git
+    cd olw
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. Instale as dependências do Laravel utilizando o Laravel Sail:
+    ```sh
+    ./vendor/bin/sail up -d
+    ```
 
-## Contributing
+3. Instale as dependências do Node.js:
+    ```sh
+    ./vendor/bin/sail npm install
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Configuração
 
-## Code of Conduct
+1. Copie o arquivo `.env.example` para `.env`:
+    ```sh
+    cp .env.example .env
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. Gere a chave da aplicação Laravel:
+    ```sh
+    ./vendor/bin/sail php artisan key:generate
+    ```
 
-## Security Vulnerabilities
+3. Configure o arquivo `.env` com as credenciais do seu banco de dados e outras variáveis de ambiente necessárias.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Execute as migrações para criar as tabelas do banco de dados:
+    ```sh
+    ./vendor/bin/sail php artisan migrate
+    ```
 
-## License
+## Estrutura do Projeto
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+A estrutura do projeto segue a convenção padrão do Laravel, com alguns diretórios adicionais para o front-end e configurações do Docker.
+
+```
+laravel-express3/
+├── app/
+├── bootstrap/
+├── config/
+├── database/
+├── public/
+├── resources/
+│   ├── js/
+│   └── views/
+├── routes/
+├── storage/
+├── tests/
+├── docker-compose.yml
+├── package.json
+└── terraform/
+```
+
+## Utilização
+
+Para iniciar o servidor de desenvolvimento, utilize o comando abaixo:
+
+```sh
+./vendor/bin/sail up
+```
+
+Para compilar os arquivos do front-end com o Vue.js, utilize:
+
+```sh
+./vendor/bin/sail npm run dev
+```
+
+## Deploy na AWS
+
+1. **Configuração do Terraform:**
+
+    Navegue até o diretório `terraform` e configure os arquivos `.tf` com suas credenciais e detalhes da AWS.
+
+2. **Inicialização e Aplicação do Terraform:**
+
+    ```sh
+    terraform init
+    terraform apply
+    ```
+
+## Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
+
+1. Fork este repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
