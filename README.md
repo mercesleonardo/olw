@@ -1,136 +1,111 @@
-# Laravel Express 3 - Do Zero Ao Deploy
+# OLW Project
 
-Bem-vindo ao projeto **Laravel Express 3 - Do Zero Ao Deploy**! Este repositório contém o código e a documentação para o desenvolvimento de uma aplicação Laravel, desde a configuração inicial até o deploy na AWS utilizando Terraform, EC2 e RDS. A aplicação inclui a construção de uma API, integração com Docker através do Laravel Sail e um front-end desenvolvido com Vue.js.
+## Descrição
 
-## Sumário
+OLW é um projeto desenvolvido em Laravel 11 com o uso de Docker através do Laravel Sail. Este projeto inclui uma API que sugere qual cerveja combina melhor com determinados tipos de comida. Além disso, o projeto utiliza Laravel Breeze para autenticação, MySQL como banco de dados, Redis para caching, Mailpit para envio de e-mails, MinIO para armazenamento de arquivos, Vue.js para a interface do usuário e Tailwind CSS para estilização.
 
-- [Introdução](#introdução)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação](#instalação)
-- [Configuração](#configuração)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Utilização](#utilização)
-- [Deploy na AWS](#deploy-na-aws)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
+## Tecnologias Utilizadas
 
-## Introdução
+- **Laravel 11**: Framework PHP para desenvolvimento web.
+- **Docker & Laravel Sail**: Ambiente de desenvolvimento containerizado.
+- **MySQL**: Banco de dados relacional.
+- **Redis**: Cache em memória.
+- **Mailpit**: Ferramenta para teste de envio de e-mails.
+- **MinIO**: Armazenamento de objetos compatível com S3.
+- **Vue.js**: Framework JavaScript para construção de interfaces de usuário.
+- **Tailwind CSS**: Framework CSS utilitário para estilização.
 
-Este projeto tem como objetivo guiar o desenvolvedor por todo o processo de criação de uma aplicação Laravel completa, abordando os seguintes tópicos:
+## Requisitos
 
-- Configuração do ambiente de desenvolvimento com Laravel Sail
-- Desenvolvimento de uma API com Laravel
-- Criação de um front-end com Vue.js
-- Dockerização da aplicação com Laravel Sail
-- Deploy na AWS utilizando Terraform, EC2 e RDS
-
-## Pré-requisitos
-
-Antes de começar, certifique-se de ter os seguintes requisitos instalados em seu ambiente de desenvolvimento:
-
-- Docker
-- Docker Compose
-- Conta na AWS
-- Git
+- Docker e Docker Compose instalados na máquina.
 
 ## Instalação
 
-Siga os passos abaixo para clonar e configurar o projeto:
+1. Clone o repositório do projeto:
 
-1. Clone o repositório:
-    ```sh
-    git clone https://github.com/seu-usuario/olw.git
-    cd olw
-    ```
+   ```bash
+   git clone https://github.com/seu-usuario/olw.git
+   cd olw
+   ```
 
-2. Instale as dependências do Laravel utilizando o Laravel Sail:
-    ```sh
-    ./vendor/bin/sail up -d
-    ```
+2. Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente conforme necessário:
 
-3. Instale as dependências do Node.js:
-    ```sh
-    ./vendor/bin/sail npm install
-    ```
+   ```bash
+   cp .env.example .env
+   ```
 
-## Configuração
+3. Suba os containers Docker com Laravel Sail:
 
-1. Copie o arquivo `.env.example` para `.env`:
-    ```sh
-    cp .env.example .env
-    ```
+   ```bash
+   ./vendor/bin/sail up -d
+   ```
 
-2. Gere a chave da aplicação Laravel:
-    ```sh
-    ./vendor/bin/sail php artisan key:generate
-    ```
+4. Instale as dependências do projeto:
 
-3. Configure o arquivo `.env` com as credenciais do seu banco de dados e outras variáveis de ambiente necessárias.
+   ```bash
+   ./vendor/bin/sail composer install
+   ```
 
-4. Execute as migrações para criar as tabelas do banco de dados:
-    ```sh
-    ./vendor/bin/sail php artisan migrate
-    ```
+5. Execute as migrações do banco de dados:
 
-## Estrutura do Projeto
+   ```bash
+   ./vendor/bin/sail artisan migrate
+   ```
 
-A estrutura do projeto segue a convenção padrão do Laravel, com alguns diretórios adicionais para o front-end e configurações do Docker.
+6. Instale as dependências do frontend:
 
-```
-laravel-express3/
-├── app/
-├── bootstrap/
-├── config/
-├── database/
-├── public/
-├── resources/
-│   ├── js/
-│   └── views/
-├── routes/
-├── storage/
-├── tests/
-├── docker-compose.yml
-├── package.json
-└── terraform/
-```
+   ```bash
+   ./vendor/bin/sail npm install
+   ```
 
-## Utilização
+7. Compile os assets do frontend:
 
-Para iniciar o servidor de desenvolvimento, utilize o comando abaixo:
+   ```bash
+   ./vendor/bin/sail npm run dev
+   ```
 
-```sh
+## Uso
+
+### Autenticação
+
+O projeto utiliza Laravel Breeze para fornecer um sistema de autenticação simples e seguro. Após configurar o projeto, você pode acessar as rotas de registro e login fornecidas pelo Breeze.
+
+### API de Combinação de Cerveja
+
+A API principal do projeto sugere combinações de cervejas com diferentes tipos de comida. Você pode acessar a documentação da API para mais detalhes sobre os endpoints disponíveis e como utilizá-los.
+
+### Desenvolvimento
+
+Para iniciar o servidor de desenvolvimento, utilize o seguinte comando:
+
+```bash
 ./vendor/bin/sail up
 ```
 
-Para compilar os arquivos do front-end com o Vue.js, utilize:
+Isso iniciará todos os containers necessários, incluindo o servidor web, banco de dados, Redis, MinIO, e Mailpit.
 
-```sh
-./vendor/bin/sail npm run dev
-```
+## Estrutura do Projeto
 
-## Deploy na AWS
-
-1. **Configuração do Terraform:**
-
-    Navegue até o diretório `terraform` e configure os arquivos `.tf` com suas credenciais e detalhes da AWS.
-
-2. **Inicialização e Aplicação do Terraform:**
-
-    ```sh
-    terraform init
-    terraform apply
-    ```
+- `app/`: Contém os controladores, modelos e outros arquivos principais do Laravel.
+- `database/`: Arquivos de migração e seeds do banco de dados.
+- `public/`: Diretório público do projeto.
+- `resources/`: Views Blade, arquivos Vue.js e outros recursos front-end.
+- `routes/`: Arquivos de definição de rotas.
+- `storage/`: Arquivos de armazenamento local.
+- `tests/`: Testes unitários e de integração.
 
 ## Contribuição
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
-
-1. Fork este repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
+1. Faça um fork do projeto.
+2. Crie uma branch para sua feature/bugfix (`git checkout -b feature/nova-feature`).
+3. Faça commit das suas alterações (`git commit -am 'Adiciona nova feature'`).
+4. Faça push para a branch (`git push origin feature/nova-feature`).
+5. Crie um novo Pull Request.
 
 ## Licença
 
-Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+---
+
+Para mais informações e documentação detalhada, consulte os repositórios e documentação oficial das tecnologias utilizadas.
